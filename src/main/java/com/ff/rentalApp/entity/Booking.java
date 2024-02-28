@@ -31,6 +31,7 @@ public class Booking {
 	private User user;
 	
 	@OneToOne(cascade =  CascadeType.ALL)
+	@JoinColumn
 	private Review review;
 	
 	@Temporal(TemporalType.TIMESTAMP)

@@ -3,13 +3,16 @@ package com.ff.rentalApp.entity;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
 @Entity
@@ -22,6 +25,8 @@ public class User {
 	private int id;
 	
 	private String userName;
+	
+	@Column(unique = true)
 	private String email;
 	private String password;
 	private double mobileNo;
@@ -31,8 +36,6 @@ public class User {
 	private List<Booking> listBooking;
 	
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn
 	private Address address;
-	
-	
-	
 }

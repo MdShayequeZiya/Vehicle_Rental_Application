@@ -14,7 +14,5 @@ public class BookingController {
 	private BookingService bookingService;
 	
 	
-	
-	
 
 }

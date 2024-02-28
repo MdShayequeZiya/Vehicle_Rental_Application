@@ -1,7 +1,9 @@
 package com.ff.rentalApp.entity;
 
-import java.sql.Date;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,8 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 @Entity
@@ -34,11 +34,11 @@ public class Booking {
 	@JoinColumn
 	private Review review;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date startTime;
+	@Basic
+	private LocalDateTime startTime;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date endTime;
+	@Basic
+	private LocalDateTime endTime;
 	
 	
 

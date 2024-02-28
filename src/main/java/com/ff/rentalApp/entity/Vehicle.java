@@ -1,9 +1,12 @@
 package com.ff.rentalApp.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -17,5 +20,9 @@ public class Vehicle {
 	private String vehicleNumber;
 	private String location;
 	private boolean isAvailable;
+	
+	
+	@OneToMany(mappedBy = "vehicle")
+	private List<Booking> bookings;
 
 }

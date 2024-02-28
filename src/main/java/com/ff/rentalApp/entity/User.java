@@ -12,7 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
 @Entity
@@ -29,7 +28,7 @@ public class User {
 	@Column(unique = true)
 	private String email;
 	private String password;
-	private double mobileNo;
+	private long mobileNo;
 	private String userRole;
 	
 	@OneToMany(mappedBy = "user")

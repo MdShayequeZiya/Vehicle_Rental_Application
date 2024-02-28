@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
@@ -19,9 +20,13 @@ public class Review {
 	private int id;
 	
 	private int rating;
-	private String reviewText;
+	private String reviewDescription;
 	private String reviewerName;
+	
 	@CreationTimestamp
 	private LocalDateTime reviewDate;
+	
+	@OneToOne(mappedBy = "review")
+	private Booking booking;
 	
 }

@@ -21,6 +21,6 @@ public class Address {
 	private String state;
 	private String country;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "address")
 	private User user;
 }

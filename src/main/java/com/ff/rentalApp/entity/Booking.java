@@ -2,6 +2,7 @@ package com.ff.rentalApp.entity;
 
 import java.sql.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,7 +30,7 @@ public class Booking {
 	@JoinColumn
 	private User user;
 	
-	@OneToOne
+	@OneToOne(cascade =  CascadeType.ALL)
 	private Review review;
 	
 	@Temporal(TemporalType.TIMESTAMP)

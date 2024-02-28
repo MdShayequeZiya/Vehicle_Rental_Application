@@ -2,6 +2,7 @@ package com.ff.rentalApp.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,10 +27,10 @@ public class User {
 	private double mobileNo;
 	private String userRole;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "user")
 	private List<Booking> listBooking;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
 	

@@ -32,27 +32,29 @@ public class BookingController {
 	private BookingService bookingService;
 	
 
-	@Operation(description ="Save Booking details for a vehicle")
+	@Operation(description ="Save Booking details for a vehicle", summary = "Save Booking details for a vehicle")
 	@ApiResponse(description = "Create Booking details", responseCode = "200")
 	@PostMapping("/book")
 	public ResponseEntity<ResponseStructure<String>> saveBooking(@RequestHeader int userId, @RequestHeader int vehicleId, @RequestBody Booking booking){
 		return bookingService.saveBooking(userId, vehicleId, booking);
 	}
 	
-	@Operation(description ="Find Booking details for a specific Customer")
+	@Operation(description ="Find Booking details for a specific Customer", summary = "Find Booking details for a specific Customer")
 	@ApiResponse(description = "Find Booking details", responseCode = "201")
 	@GetMapping("/details/{userId}")
 	public ResponseEntity<ResponseStructure<List<Booking>>> getBookings(@PathVariable int userId){
 		return bookingService.findBookings(userId);
 	}
 	
-	@Operation(description ="Update Booking vehicle rental timings for a specific Customer")
+	@Operation(description ="Update Booking vehicle rental timings for a specific Customer", summary = "Update Booking vehicle rental timings for a specific Customer")
 	@ApiResponse(description = "Displaying Booking ", responseCode = "200")
 	@PutMapping("/update/{userId}/{bid}")
 	public ResponseEntity<ResponseStructure<Booking>> updateBooking(@PathVariable int userId, @PathVariable int bookingId,  @RequestBody Booking booking){
 		return bookingService.updateBooking(userId, bookingId, booking);
 	}
 	
+	@Operation(description ="Delete a particular booking for a specific Customer", summary = "Delete a particular booking for a specific Customer")
+	@ApiResponse(description = "Deleted Successfully!! ", responseCode = "200")
 	@DeleteMapping("/book")
 	public ResponseEntity<ResponseStructure<String>> deleteBooking(@RequestParam int userId, @RequestParam int bookingId){
 		

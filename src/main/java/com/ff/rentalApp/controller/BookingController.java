@@ -5,7 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+ 
+import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,9 +40,16 @@ public class BookingController {
 	
 	@Operation(description ="Find Booking details for a specific Customer")
 	@ApiResponse(description = "Find Booking details", responseCode = "201")
-	@GetMapping("/details/{uid}")
-	public ResponseEntity<ResponseStructure<List<Booking>>> getBookings(@RequestHeader int userId){
+	@GetMapping("/details/{userId}")
+	public ResponseEntity<ResponseStructure<List<Booking>>> getBookings(@PathVariable int userId){
 		return bookingService.findBookings(userId);
+	}
+	
+	@Operation(description ="Update Booking vehicle rental timings for a specific Customer")
+	@ApiResponse(description = "Displaying Booking ", responseCode = "200")
+	@PutMapping("/update/{userId}/{bid}")
+	public ResponseEntity<ResponseStructure<Booking>> updateBooking(@PathVariable int userId, @PathVariable int bookingId,  @RequestBody Booking booking){
+		return bookingService.updateBooking(userId, bookingId, booking);
 	}
 
 }

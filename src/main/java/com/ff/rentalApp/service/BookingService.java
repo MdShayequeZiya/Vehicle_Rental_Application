@@ -73,7 +73,7 @@ public class BookingService {
 				booking.setVehicle(receivedVehicle);
 				booking.setUser(receivedUser);
 				bookingDao.saveBooking(booking);
-				// response structure
+
 				ResponseStructure<String> responseStructure = new ResponseStructure<String>();
 				responseStructure.setData("Booking saved successfully!!!");
 				responseStructure.setStatusCode(HttpStatus.CREATED.value());
@@ -88,22 +88,46 @@ public class BookingService {
 
 	}
 
-	public ResponseEntity<ResponseStructure<List<Booking>>> findBookings(int userId){
-		
+	public ResponseEntity<ResponseStructure<List<Booking>>> findBookings(int userId) {
+
 		User receivedUser = userDao.findUserbyId(userId);
-		
-		if(receivedUser != null && receivedUser.getUserRole().equals("customer")) {
+
+		if (receivedUser != null && receivedUser.getUserRole().equals("customer")) {
 			List<Booking> bookings = receivedUser.getListBooking();
 			ResponseStructure<List<Booking>> responseStructure = new ResponseStructure<List<Booking>>();
-				responseStructure.setData(bookings);
-				responseStructure.setStatusCode(HttpStatus.FOUND.value());
-				responseStructure.setMessage("Found");
-				return new ResponseEntity<ResponseStructure<List<Booking>>>(responseStructure, HttpStatus.FOUND);
-			}
-		else {
+			responseStructure.setData(bookings);
+			responseStructure.setStatusCode(HttpStatus.FOUND.value());
+			responseStructure.setMessage("Found");
+			return new ResponseEntity<ResponseStructure<List<Booking>>>(responseStructure, HttpStatus.FOUND);
+		} else {
 			throw new ApplicationException("Customer does not exist!!!");
 		}
-		
+
+	}
+
+	public ResponseEntity<ResponseStructure<Booking>> updateBooking(int userId, int bookingId, Booking booking) {
+		User receivedUser = userDao.findUserbyId(userId);
+
+		if (receivedUser != null && receivedUser.getUserRole().equals("customer")) {
+			Booking existingBooking = bookingDao.findBookingById(bookingId);
+			if (existingBooking != null) {
+				
+				existingBooking.setStartTime(booking.getStartTime());
+				existingBooking.setEndTime(booking.getEndTime());
+				bookingDao.saveBooking(existingBooking);
+				
+				ResponseStructure<Booking> responseStructure = new ResponseStructure<Booking>();
+				responseStructure.setData(existingBooking);
+				responseStructure.setStatusCode(HttpStatus.OK.value());
+				responseStructure.setMessage("Updated Successfully!!");
+				return new ResponseEntity<ResponseStructure<Booking>>(responseStructure, HttpStatus.OK);
+			}
+			else {
+				throw new ApplicationException("Booking does not exist for this Id!!!");
+			}
+		} else {
+			throw new ApplicationException("Customer does not exist!!!");
+		}
 	}
 
 }

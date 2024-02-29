@@ -1,5 +1,7 @@
 package com.ff.rentalApp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,26 +59,17 @@ public class BookingService {
 		}
 
 	}
-<<<<<<< HEAD
+
 	
-	public ResponseEntity<ResponseStructure<String>> saveBooking(int userId, int vehicleId, Booking booking){
-		
-//		User receivedUser = userDao.findById(userId);
-		User receivedUser = new User();
-		Vehicle receivedVehicle = vehicleDao.findVehicleById(vehicleId);	
-		
-		if(receivedUser != null && receivedUser.getUserRole().equals("customer")) {
-			if(receivedVehicle != null && BookingHelper.isAvailable(booking, receivedVehicle)) {
-=======
+
 
 	public ResponseEntity<ResponseStructure<String>> saveBooking(int userId, int vehicleId, Booking booking) {
 
 		User receivedUser = userDao.findUserbyId(userId);
-		Vehicle receivedVehicle = vehicleDao.findVehicle(vehicleId);
+		Vehicle receivedVehicle = vehicleDao.findVehicleById(vehicleId);
 
 		if (receivedUser != null && receivedUser.getUserRole().equals("customer")) {
 			if (receivedVehicle != null && BookingHelper.isAvailable(booking, receivedVehicle)) {
->>>>>>> 5e741167a09ed69ad7b141e3c266d750cb936d61
 				booking.setVehicle(receivedVehicle);
 				booking.setUser(receivedUser);
 				bookingDao.saveBooking(booking);

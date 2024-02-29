@@ -1,12 +1,17 @@
 package com.ff.rentalApp.dao;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ff.rentalApp.entity.Booking;
 import com.ff.rentalApp.entity.Vehicle;
 import com.ff.rentalApp.repository.VehicleRepository;
+import com.ff.rentalApp.util.VehicleHelper;
 
 @Repository
 public class VehicleDao {
@@ -28,7 +33,7 @@ public class VehicleDao {
 	}
 
 	// find the vehicle by id
-	public Vehicle findVehicle(int id) {
+	public Vehicle findVehicleById(int id) {
 		Optional<Vehicle> option = vehicleRepository.findById(id);
 		if (option.isPresent()) {
 			Vehicle vehicle = option.get();
@@ -36,6 +41,35 @@ public class VehicleDao {
 		} else
 			return null;
 	}
+
+     //delete the vehicle
+	public String deleteVehicle(int id) {
+		Optional<Vehicle> option = vehicleRepository.findById(id);
+		if (option.isPresent()) {
+			vehicleRepository.deleteById(id);
+			return "vehicle is removed";
+		} else
+			return null;
+	}
 	
+	
+	//search the vehicle by available dates
+	public List<Vehicle> searchAvailableVehiclesByDates(LocalDate startDate, LocalDate endDate) {
+	    List<Vehicle> availableVehicles = new ArrayList<>();
+	    VehicleHelper vehicleHelper = new VehicleHelper();
+	    // Get all vehicles
+	    List<Vehicle> allVehicles = vehicleRepository.findAll();
+
+	    // Iterate over each vehicle
+	    for (Vehicle vehicle : allVehicles) {
+	        // Check if the vehicle is available for the specified dates
+	        if (vehicleHelper.isVehicleAvailableForDates(vehicle, startDate, endDate)) {
+	            availableVehicles.add(vehicle);
+	        }
+	    }
+	    
+	    return availableVehicles;
+	}
+
 
 }

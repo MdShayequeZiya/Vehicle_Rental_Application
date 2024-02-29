@@ -1,9 +1,5 @@
 package com.ff.rentalApp.service;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.ff.rentalApp.dao.VehicleDao;
 import com.ff.rentalApp.dto.ResponseStructure;
-import com.ff.rentalApp.entity.Booking;
 import com.ff.rentalApp.entity.Vehicle;
 import com.ff.rentalApp.exception.ApplicationException;
 
@@ -20,19 +15,23 @@ public class VehicleService {
 	@Autowired
 	private VehicleDao vehicleDao;
 
-	public ResponseEntity<ResponseStructure<Vehicle>> saveVehicle(Vehicle vehicle) {
-		Vehicle receivedVehicle = vehicleDao.saveVehicle(vehicle);
+	public ResponseEntity<ResponseStructure<Vehicle>> saveVehicle(int id,Vehicle vehicle) {
+		Vehicle receivedVehicle = vehicleDao.saveVehicle(id,vehicle);
+		if(receivedVehicle!=null) {
 		ResponseStructure<Vehicle> response = new ResponseStructure<Vehicle>();
 		response.setStatusCode(HttpStatus.CREATED.value());
 		response.setMessage("vehicle is added");
 		response.setData(receivedVehicle);
 		return new ResponseEntity<ResponseStructure<Vehicle>>(response, HttpStatus.CREATED);
-
+		}
+		else
+			throw new ApplicationException("merchant id doesnt exist..!");
+			
 	}
 
 	// update vehicle
-	public ResponseEntity<ResponseStructure<Vehicle>> updateVehicle(int id, Vehicle vehicle) {
-		Vehicle receivedVehicle = vehicleDao.updateVehicle(id, vehicle);
+	public ResponseEntity<ResponseStructure<Vehicle>> updateVehicle(int userId, int vehicleId, Vehicle vehicle) {
+		Vehicle receivedVehicle = vehicleDao.updateVehicle(userId, vehicleId, vehicle);
 		if (receivedVehicle != null) {
 			ResponseStructure<Vehicle> response = new ResponseStructure<Vehicle>();
 			response.setData(receivedVehicle);
@@ -40,7 +39,7 @@ public class VehicleService {
 			response.setMessage("Vehicle is updated");
 			return new ResponseEntity<ResponseStructure<Vehicle>>(response, HttpStatus.CREATED);
 		} else
-			throw new ApplicationException(("Vehicle not found with ID: " + id));
+			throw new ApplicationException(("Vehicle not found with ID: " + vehicleId));
 
 	}
 
@@ -59,8 +58,8 @@ public class VehicleService {
 	}
 	
 	//delete vehicle 
-		public ResponseEntity<ResponseStructure<String>> deleteVehicle(int id) {
-			String removedVehicle = vehicleDao.deleteVehicle(id);
+		public ResponseEntity<ResponseStructure<String>> deleteVehicle(int userId, int vehicleId) {
+			String removedVehicle = vehicleDao.deleteVehicle(userId, vehicleId);
 			if (removedVehicle != null) {
 				ResponseStructure<String> response = new ResponseStructure<String>();
 				response.setData(removedVehicle);
@@ -68,7 +67,7 @@ public class VehicleService {
 				response.setMessage("Vehicle is removed");
 				return new ResponseEntity<ResponseStructure<String>>(response, HttpStatus.OK);
 			} else
-				throw new ApplicationException(("Vehicle not found with ID: " + id));
+				throw new ApplicationException(("Vehicle not found with ID: " + vehicleId));
 
 
 		}

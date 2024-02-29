@@ -18,5 +18,11 @@ public class BookingDao {
 		return bookingRepository.save(booking);
 		
 	}
+	
+	
+	public Booking findBookingById(int id) {
+		
+		return bookingRepository.findById(id);
+	}
 
 }

@@ -24,4 +24,18 @@ public class BookingController {
 		return bookingService.saveBooking(userId, vehicleId, booking);
 	}
 
+	@Operation(description ="Save Booking details for a vehicle")
+	@ApiResponse(description = "Create Booking details", responseCode = "200")
+	@PostMapping("/book")
+	public ResponseEntity<ResponseStructure<String>> saveBooking(@RequestHeader int userId, @RequestHeader int vehicleId, @RequestBody Booking booking){
+		return bookingService.saveBooking(userId, vehicleId, booking);
+	}
+	
+	@Operation(description ="Find Booking details for a specific Customer")
+	@ApiResponse(description = "Find Booking details", responseCode = "201")
+	@GetMapping("/details/{uid}")
+	public ResponseEntity<ResponseStructure<List<Booking>>> getBookings(@RequestHeader int userId){
+		return bookingService.findBookings(userId);
+	}
+
 }

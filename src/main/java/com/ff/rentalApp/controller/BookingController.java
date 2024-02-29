@@ -28,7 +28,6 @@ public class BookingController {
 	private BookingService bookingService;
 	
 
-
 	@Operation(description ="Save Booking details for a vehicle")
 	@ApiResponse(description = "Create Booking details", responseCode = "200")
 	@PostMapping("/book")

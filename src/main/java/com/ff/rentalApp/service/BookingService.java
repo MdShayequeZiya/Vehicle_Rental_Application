@@ -38,8 +38,9 @@ public class BookingService {
 	
 	public ResponseEntity<ResponseStructure<String>> saveBooking(int userId, int vehicleId, Booking booking){
 		
-		User receivedUser = userDao.findById(userId);
-		Vehicle receivedVehicle = vehicleDao.findById(vehicleId);	
+//		User receivedUser = userDao.findById(userId);
+		User receivedUser = new User();
+		Vehicle receivedVehicle = vehicleDao.findVehicleById(vehicleId);	
 		
 		if(receivedUser != null && receivedUser.getUserRole().equals("customer")) {
 			if(receivedVehicle != null && BookingHelper.isAvailable(booking, receivedVehicle)) {

@@ -38,24 +38,38 @@ public class VehicleService {
 			throw new ApplicationException(("Vehicle not found with ID: " + id));
 
 	}
-	
-	
-	//get vehicle details
-	public ResponseEntity<ResponseStructure<Vehicle>>findVehicle(int id){
-	Vehicle receivedVehicle=	vehicleDao.findVehicle(id);
-	if(receivedVehicle!=null) {
-		ResponseStructure<Vehicle> response = new ResponseStructure<Vehicle>();
-		response.setData(receivedVehicle);
-		response.setStatusCode(HttpStatus.FOUND.value());
-		response.setMessage("Vehicle is found");
-		return new ResponseEntity<ResponseStructure<Vehicle>>(response, HttpStatus.FOUND);
-	} else
-		throw new ApplicationException(("Vehicle not found with ID: " + id));
+
+	// get vehicle details
+	public ResponseEntity<ResponseStructure<Vehicle>> findVehicle(int id) {
+		Vehicle receivedVehicle = vehicleDao.findVehicleById(id);
+		if (receivedVehicle != null) {
+			ResponseStructure<Vehicle> response = new ResponseStructure<Vehicle>();
+			response.setData(receivedVehicle);
+			response.setStatusCode(HttpStatus.FOUND.value());
+			response.setMessage("Vehicle is found");
+			return new ResponseEntity<ResponseStructure<Vehicle>>(response, HttpStatus.FOUND);
+		} else
+			throw new ApplicationException(("Vehicle not found with ID: " + id));
 
 	}
-	}
 	
-	
-	
+	//delete vehicle 
+		public ResponseEntity<ResponseStructure<String>> deleteVehicle(int id) {
+			String removedVehicle = vehicleDao.deleteVehicle(id);
+			if (removedVehicle != null) {
+				ResponseStructure<String> response = new ResponseStructure<String>();
+				response.setData(removedVehicle);
+				response.setStatusCode(HttpStatus.OK.value());
+				response.setMessage("Vehicle is removed");
+				return new ResponseEntity<ResponseStructure<String>>(response, HttpStatus.OK);
+			} else
+				throw new ApplicationException(("Vehicle not found with ID: " + id));
 
 
+		}
+	
+	
+	
+	
+	
+}

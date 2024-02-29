@@ -29,7 +29,7 @@ public class VehicleDao {
 	}
 
 	// find the vehicle by id
-	public Vehicle findVehicle(int id) {
+	public Vehicle findVehicleById(int id) {
 		Optional<Vehicle> option = vehicleRepository.findById(id);
 		if (option.isPresent()) {
 			Vehicle vehicle = option.get();
@@ -37,6 +37,14 @@ public class VehicleDao {
 		} else
 			return null;
 	}
-	
 
+     //delete the vehicle
+	public String deleteVehicle(int id) {
+		Optional<Vehicle> option = vehicleRepository.findById(id);
+		if (option.isPresent()) {
+			vehicleRepository.deleteById(id);
+			return "vehicle is removed";
+		} else
+			return null;
+	}
 }

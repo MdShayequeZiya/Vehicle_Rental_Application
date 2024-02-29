@@ -19,7 +19,7 @@ public class Vehicle {
 	private String model;
 	private String vehicleNumber;
 	private String location;
-	
+	private boolean isAvailable;
 	
 	@OneToMany(mappedBy = "vehicle")
 	private List<Booking> bookings;

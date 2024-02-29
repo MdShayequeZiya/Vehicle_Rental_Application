@@ -11,6 +11,7 @@ import com.ff.rentalApp.dao.BookingDao;
 import com.ff.rentalApp.dao.UserDao;
 import com.ff.rentalApp.dao.VehicleDao;
 import com.ff.rentalApp.dto.ResponseStructure;
+import com.ff.rentalApp.dto.Review_Dto;
 import com.ff.rentalApp.entity.Booking;
 import com.ff.rentalApp.entity.Review;
 import com.ff.rentalApp.entity.User;
@@ -29,7 +30,7 @@ public class BookingService {
 	@Autowired
 	private VehicleDao vehicleDao;
 
-	public ResponseEntity<ResponseStructure<String>> createReview(int userId, int bookingId, Review review) {
+	public ResponseEntity<ResponseStructure<String>> createReview(int userId, int bookingId, Review_Dto review) {
 
 		User receivedUser = userDao.findUserbyId(userId);
 		Booking booking = bookingDao.findBookingById(bookingId);
@@ -37,8 +38,13 @@ public class BookingService {
 		if (receivedUser != null && receivedUser.getUserRole().equals("customer")) {
 
 			if (booking != null) {
+				
+				Review r1 = new Review();
+				r1.setRating(bookingId);
+				r1.setReviewDescription(review.getDescription());
+				r1.setReviewerName(review.getName());
 
-				booking.setReview(review);
+				booking.setReview(r1);
 
 				bookingDao.saveBooking(booking);
 

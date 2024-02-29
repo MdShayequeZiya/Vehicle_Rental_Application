@@ -19,7 +19,7 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private int rating;
+	private double rating;
 	private String reviewDescription;
 	private String reviewerName;
 	

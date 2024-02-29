@@ -20,7 +20,7 @@ import lombok.Data;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	private String userName;
@@ -34,7 +34,7 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Booking> listBooking;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn
 	private Address address;
 }

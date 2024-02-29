@@ -2,7 +2,9 @@ package com.ff.rentalApp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +28,9 @@ public class UserController {
 	public ResponseEntity<ResponseStructure<User>>userLogin(@RequestParam String email, @RequestParam String password){
 		return userService.findUser(email, password);
 	}
-	
+	@PutMapping("/user/{id}")
+	public ResponseEntity<ResponseStructure<User>>updateUser(@PathVariable int id, @RequestBody User user){
+		return userService.updateUser(id,user);
+	}
 
 }

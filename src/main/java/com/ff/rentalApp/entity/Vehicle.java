@@ -21,7 +21,6 @@ public class Vehicle {
 	private String location;
 	private boolean isAvailable;
 	
-	
 	@OneToMany(mappedBy = "vehicle")
 	private List<Booking> bookings;
 

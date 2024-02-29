@@ -8,9 +8,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class RentalAppApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext run = SpringApplication.run(RentalAppApplication.class, args);
+		SpringApplication.run(RentalAppApplication.class, args);
 
-		SpringApplication.exit(run, ()->0);
 	}
 
 }

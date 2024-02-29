@@ -18,12 +18,12 @@ public class AddressController {
 	@Autowired
 	private AddressService addressService;
 	
-	@PostMapping("/address/{id}")
-	ResponseEntity<ResponseStructure<Address>>saveAddress(@RequestBody Address address,@PathVariable int id){
-		return addressService.saveAddress(address, id);
+	@PostMapping("/address/{userId}")
+	ResponseEntity<ResponseStructure<Address>>saveAddress(@RequestBody Address address, @PathVariable int userId){
+		return addressService.saveAddress(address, userId);
 	}
-	@PutMapping("/address/{id}")
-	ResponseEntity<ResponseStructure<Address>>updateAddress(@RequestBody Address address,@PathVariable int id){
-		return addressService.updateAddress(address, id);
+	@PutMapping("/address/{userId}")
+	ResponseEntity<ResponseStructure<Address>>updateAddress(@RequestBody Address address, @PathVariable int userId){
+		return addressService.updateAddress(address, userId);
 	}
 }

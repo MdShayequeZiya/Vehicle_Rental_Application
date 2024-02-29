@@ -56,7 +56,7 @@ public class BookingController {
 	@DeleteMapping("/book")
 	public ResponseEntity<ResponseStructure<String>> deleteBooking(@RequestParam int userId, @RequestParam int bookingId){
 		
-		return null;
+		return bookingService.deleteBooking(userId, bookingId);
 		
 	}
 

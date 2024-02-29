@@ -16,7 +16,6 @@ import com.ff.rentalApp.entity.Review;
 import com.ff.rentalApp.entity.User;
 import com.ff.rentalApp.entity.Vehicle;
 import com.ff.rentalApp.exception.ApplicationException;
-import com.ff.rentalApp.util.BookingHelper;
 
 @Service
 public class BookingService {
@@ -69,7 +68,7 @@ public class BookingService {
 		Vehicle receivedVehicle = vehicleDao.findVehicleById(vehicleId);
 
 		if (receivedUser != null && receivedUser.getUserRole().equals("customer")) {
-			if (receivedVehicle != null && BookingHelper.isAvailable(booking, receivedVehicle)) {
+			if (receivedVehicle != null && bookingDao.isVehicleAvailable(vehicleId, booking.getStartTime(), booking.getEndTime())) {
 				booking.setVehicle(receivedVehicle);
 				booking.setUser(receivedUser);
 				bookingDao.saveBooking(booking);
@@ -96,9 +95,9 @@ public class BookingService {
 			List<Booking> bookings = receivedUser.getListBooking();
 			ResponseStructure<List<Booking>> responseStructure = new ResponseStructure<List<Booking>>();
 			responseStructure.setData(bookings);
-			responseStructure.setStatusCode(HttpStatus.FOUND.value());
-			responseStructure.setMessage("Found");
-			return new ResponseEntity<ResponseStructure<List<Booking>>>(responseStructure, HttpStatus.FOUND);
+			responseStructure.setStatusCode(HttpStatus.OK.value());
+			responseStructure.setMessage("Success");
+			return new ResponseEntity<ResponseStructure<List<Booking>>>(responseStructure, HttpStatus.OK);
 		} else {
 			throw new ApplicationException("Customer does not exist!!!");
 		}

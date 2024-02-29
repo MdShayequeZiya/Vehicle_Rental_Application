@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
-import net.bytebuddy.dynamic.loading.ClassReloadingStrategy.Strategy;
 
 	
 @Entity

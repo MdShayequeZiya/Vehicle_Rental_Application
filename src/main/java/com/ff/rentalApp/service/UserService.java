@@ -50,4 +50,26 @@ public class UserService {
 		return new ResponseEntity<ResponseStructure<User>>(rs, HttpStatus.CREATED);
 
 	}
+	
+	public ResponseEntity<ResponseStructure<User>> updateUser(int id, User user) {
+		 
+		User user2 = userDao.findUserbyId(id);
+		
+		user2.setAddress(user.getAddress());
+		user2.setEmail(user.getEmail());
+		user2.setMobileNo(user.getMobileNo());
+		user2.setPassword(user.getPassword());
+		user2.setUserName(user.getUserName());
+		user2.setUserRole(user.getUserRole());
+		
+		User receivedUser = userDao.saveUser(user2);
+		
+		ResponseStructure<User> rs = new ResponseStructure<User>();
+		rs.setMessage("User Fetched successfully added");
+		rs.setStatusCode(HttpStatus.CREATED.value());
+		rs.setData(receivedUser);
+
+		return new ResponseEntity<ResponseStructure<User>>(rs, HttpStatus.CREATED);
+
+	}
 }

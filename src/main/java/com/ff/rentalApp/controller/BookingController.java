@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
  
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ff.rentalApp.dto.ResponseStructure;
@@ -49,6 +51,13 @@ public class BookingController {
 	@PutMapping("/update/{userId}/{bid}")
 	public ResponseEntity<ResponseStructure<Booking>> updateBooking(@PathVariable int userId, @PathVariable int bookingId,  @RequestBody Booking booking){
 		return bookingService.updateBooking(userId, bookingId, booking);
+	}
+	
+	@DeleteMapping("/book")
+	public ResponseEntity<ResponseStructure<String>> deleteBooking(@RequestParam int userId, @RequestParam int bookingId){
+		
+		return bookingService.deleteBooking(userId, bookingId);
+		
 	}
 
 }

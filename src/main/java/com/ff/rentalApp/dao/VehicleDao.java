@@ -5,7 +5,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+<<<<<<< HEAD
 import com.ff.rentalApp.entity.User;
+=======
+>>>>>>> cb087c285a22052e4b16e46e85450d47d36f818c
 import com.ff.rentalApp.entity.Vehicle;
 import com.ff.rentalApp.repository.VehicleRepository;
 

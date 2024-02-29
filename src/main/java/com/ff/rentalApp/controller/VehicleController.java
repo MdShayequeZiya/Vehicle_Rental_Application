@@ -19,43 +19,43 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
-//@RequestMapping("/vehicles")
 public class VehicleController {
 
 	@Autowired
 	private VehicleService vehicleService;
 
-//	@ApiResponses(value = @ApiResponse(description = "vehicle created", responseCode = "201"))
-//	@Operation(description = "To save the Vehicle information", summary = "The Vehicle datas are saved in the database")
-	@PostMapping("/vehicles")
-	public ResponseEntity<ResponseStructure<Vehicle>> saveVehicle(@RequestBody Vehicle vehicle) {
-		return vehicleService.saveVehicle(vehicle);
+	@ApiResponses(value = @ApiResponse(description = "vehicle created", responseCode = "201"))
+	@Operation(description = "To save the Vehicle information", summary = "The Vehicle datas are saved in the database")
+	@PostMapping("/vehicles/{userId}")
+	public ResponseEntity<ResponseStructure<Vehicle>> saveVehicle(@PathVariable int userId,
+			@RequestBody Vehicle vehicle) {
+		return vehicleService.saveVehicle(userId, vehicle);
 	}
 
 	@ApiResponse(description = "Update Vehicle details", responseCode = "201")
 	@Operation(description = "Update details of an existing vehicle")
-	@PutMapping("/vehicles/{id}")
-	public ResponseEntity<ResponseStructure<Vehicle>> updateVehicle(@PathVariable int id,
-			@RequestBody Vehicle vehicle) {
-		return vehicleService.updateVehicle(id, vehicle);
+	@PutMapping("/vehicles/{userId}/{vehicleId}")
+	public ResponseEntity<ResponseStructure<Vehicle>> updateVehicle(@PathVariable int userId,
+			@PathVariable int vehicleId, @RequestBody Vehicle vehicle) {
+		return vehicleService.updateVehicle(userId, vehicleId, vehicle);
 
 	}
 
 	@ApiResponse(description = "Get Vehicle details", responseCode = "201")
 	@Operation(description = "Get details of an existing vehicle")
-	@GetMapping("/vehicles/{id}")
-	public ResponseEntity<ResponseStructure<Vehicle>> updateVehicle(@PathVariable int id) {
-		return vehicleService.findVehicle(id);
+	@GetMapping("/vehicles/{vehicleId}")
+	public ResponseEntity<ResponseStructure<Vehicle>> findVehicle(@PathVariable int vehicleId) {
+		return vehicleService.findVehicle(vehicleId);
 
 	}
-	
+
 	@ApiResponse(description = "Delete Vehicle details", responseCode = "201")
 	@Operation(description = "Delete details of an existing vehicle")
-	@DeleteMapping("/vehicles/{id}")
-	public ResponseEntity<ResponseStructure<String>> deleteVehicle(@PathVariable int id) {
-		return vehicleService.deleteVehicle(id);
+	@DeleteMapping("/vehicles/{userId}/{vehicleId}")
+	public ResponseEntity<ResponseStructure<String>> deleteVehicle(@PathVariable int userId,
+			@PathVariable int vehicleId) {
+		return vehicleService.deleteVehicle(userId, vehicleId);
 
 	}
-	
 
 }

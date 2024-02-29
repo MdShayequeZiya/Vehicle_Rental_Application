@@ -10,6 +10,7 @@ import com.ff.rentalApp.dto.ResponseStructure;
 
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
+
 	
 	
 	@ExceptionHandler(ApplicationException.class)

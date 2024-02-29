@@ -11,13 +11,10 @@ import com.ff.rentalApp.dto.ResponseStructure;
 import com.ff.rentalApp.dto.Review_Dto;
 import com.ff.rentalApp.service.BookingService;
 
-<<<<<<< HEAD
-=======
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
->>>>>>> 1e23da9f0a648051aa82956938adb4ca2ecb8708
+
 @RestController
 public class ReviewController {
 	

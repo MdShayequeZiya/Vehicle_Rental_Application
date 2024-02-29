@@ -24,5 +24,13 @@ public class BookingDao {
 		
 		return bookingRepository.findById(id);
 	}
+	
+	
+	public void deleteBooking(Booking booking) {
+		
+		bookingRepository.delete(booking);
+		
+		
+	}
 
 }

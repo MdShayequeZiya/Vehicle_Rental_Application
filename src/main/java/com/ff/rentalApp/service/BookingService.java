@@ -129,5 +129,44 @@ public class BookingService {
 			throw new ApplicationException("Customer does not exist!!!");
 		}
 	}
+	
+	public ResponseEntity<ResponseStructure<String>> deleteBooking(int userId, int bookingId){
+		
+		
+		User user = userDao.findUserbyId(userId);
+		Booking booking = bookingDao.findBookingById(bookingId);
+		
+		if (user != null && user.getUserRole().equals("customer")) {
+			
+			if(booking != null) {
+				
+				bookingDao.deleteBooking(booking);
+				
+				ResponseStructure<String> rs = new ResponseStructure<>();
+				rs.setStatusCode(HttpStatus.OK.value());
+				rs.setMessage("Success");
+				rs.setData("Booking deleted successfully!");
+				
+				return new ResponseEntity<ResponseStructure<String>>(rs, HttpStatus.OK);				
+				
+			}
+			throw new ApplicationException("Booking id not valid!");
+			
+			
+		}
+		throw new ApplicationException("Not a valid customer.");
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

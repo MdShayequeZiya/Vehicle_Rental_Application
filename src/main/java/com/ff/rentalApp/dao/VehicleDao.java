@@ -1,14 +1,10 @@
 package com.ff.rentalApp.dao;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ff.rentalApp.entity.Booking;
 import com.ff.rentalApp.entity.Vehicle;
 import com.ff.rentalApp.repository.VehicleRepository;
 
@@ -41,7 +37,7 @@ public class VehicleDao {
 			return null;
 	}
 
-     //delete the vehicle
+	// delete the vehicle
 	public String deleteVehicle(int id) {
 		Optional<Vehicle> option = vehicleRepository.findById(id);
 		if (option.isPresent()) {
@@ -50,6 +46,5 @@ public class VehicleDao {
 		} else
 			return null;
 	}
-
 
 }

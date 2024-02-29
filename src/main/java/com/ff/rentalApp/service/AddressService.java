@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.ff.rentalApp.dao.AddressDao;
 import com.ff.rentalApp.dao.UserDao;
 import com.ff.rentalApp.dto.ResponseStructure;
 import com.ff.rentalApp.entity.Address;
@@ -13,9 +12,6 @@ import com.ff.rentalApp.entity.User;
 
 @Service
 public class AddressService {
-
-	@Autowired
-	private AddressDao addressDao;
 	
 	@Autowired
 	private UserDao userDao;
@@ -23,10 +19,10 @@ public class AddressService {
 	public ResponseEntity<ResponseStructure<Address>> saveAddress(Address address, int id){
 		User user = userDao.findUserbyId(id);
 		user.setAddress(address);
-		userDao.saveUser(user);
+		User saveUser = userDao.saveUser(user);
 		
 		ResponseStructure<Address>rs=new ResponseStructure<Address>();
-		rs.setData(address);
+		rs.setData(saveUser.getAddress());
 		rs.setMessage("Address inserted successfully");
 		rs.setStatusCode(HttpStatus.CREATED.value());
 		

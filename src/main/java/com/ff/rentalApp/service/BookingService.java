@@ -83,4 +83,22 @@ public class BookingService {
 
 	}
 
+	public ResponseEntity<ResponseStructure<List<Booking>>> findBookings(int userId){
+		
+		User receivedUser = userDao.findUserbyId(userId);
+		
+		if(receivedUser != null && receivedUser.getUserRole().equals("customer")) {
+			List<Booking> bookings = receivedUser.getListBooking();
+			ResponseStructure<List<Booking>> responseStructure = new ResponseStructure<List<Booking>>();
+				responseStructure.setData(bookings);
+				responseStructure.setStatusCode(HttpStatus.FOUND.value());
+				responseStructure.setMessage("Found");
+				return new ResponseEntity<ResponseStructure<List<Booking>>>(responseStructure, HttpStatus.FOUND);
+			}
+		else {
+			throw new ApplicationException("Customer does not exist!!!");
+		}
+		
+	}
+
 }

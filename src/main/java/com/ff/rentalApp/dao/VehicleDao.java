@@ -26,29 +26,6 @@ public class VehicleDao {
 			return null;
 	}
 
-	// update vehicle details
-	public Vehicle updateVehicle(int userId, int vehicleId, Vehicle vehicle) {
-		User receivedUser = userDao.findUserbyId(userId);
-
-		if (receivedUser != null && "merchant".equalsIgnoreCase(receivedUser.getUserRole())) {
-			Optional<Vehicle> optionalVehicle = vehicleRepository.findById(vehicleId);
-			if (optionalVehicle.isPresent()) {
-				Vehicle updatedVehicle = optionalVehicle.get();
-				updatedVehicle.setType(vehicle.getType());
-				updatedVehicle.setLocation(vehicle.getLocation());
-				updatedVehicle.setAvailable(vehicle.isAvailable());
-				updatedVehicle.setModel(vehicle.getModel());
-				updatedVehicle.setVehicleNumber(vehicle.getVehicleNumber());
-				
-				return vehicleRepository.save(updatedVehicle);
-			} else {
-				return null;
-			}
-		} else {
-			return null;
-		}
-	}
-
 	// find the vehicle by id
 	public Vehicle findVehicleById(int id) {
 		Optional<Vehicle> option = vehicleRepository.findById(id);
@@ -60,17 +37,8 @@ public class VehicleDao {
 	}
 
 	// delete the vehicle
-	public String deleteVehicle(int userId, int vehicleId) {
-		User receivedUser = userDao.findUserbyId(userId);
-		if (receivedUser != null && receivedUser.getUserRole().equalsIgnoreCase("merchant")) {
-			Optional<Vehicle> option = vehicleRepository.findById(vehicleId);
-			if (option.isPresent()) {
-				vehicleRepository.deleteById(vehicleId);
-				return "vehicle is removed";
-			} else
-				return null;
-		} else
-			return null;
+	public void deleteVehicle( int vehicleId) {
+	 vehicleRepository.deleteById(vehicleId);
 	}
 
 }

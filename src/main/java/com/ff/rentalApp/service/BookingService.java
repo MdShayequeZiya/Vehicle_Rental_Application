@@ -111,15 +111,22 @@ public class BookingService {
 			Booking existingBooking = bookingDao.findBookingById(bookingId);
 			if (existingBooking != null) {
 				
+				if(bookingDao.isVehicleAvailable(existingBooking.getVehicle().getId(), booking.getStartTime(), booking.getEndTime()))
+				{
 				existingBooking.setStartTime(booking.getStartTime());
 				existingBooking.setEndTime(booking.getEndTime());
 				bookingDao.saveBooking(existingBooking);
+				
 				
 				ResponseStructure<Booking> responseStructure = new ResponseStructure<Booking>();
 				responseStructure.setData(existingBooking);
 				responseStructure.setStatusCode(HttpStatus.OK.value());
 				responseStructure.setMessage("Updated Successfully!!");
 				return new ResponseEntity<ResponseStructure<Booking>>(responseStructure, HttpStatus.OK);
+				}
+				else {
+					throw new ApplicationException("Booking date is not available.");
+				}
 			}
 			else {
 				throw new ApplicationException("Booking does not exist for this Id!!!");

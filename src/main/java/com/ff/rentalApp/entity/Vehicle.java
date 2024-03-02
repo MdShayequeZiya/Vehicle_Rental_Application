@@ -2,6 +2,8 @@ package com.ff.rentalApp.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,9 +21,10 @@ public class Vehicle {
 	private String model;
 	private String vehicleNumber;
 	private String location;
-	
+	private boolean isAvailable;
 	
 	@OneToMany(mappedBy = "vehicle")
+	@JsonIgnore
 	private List<Booking> bookings;
 
 }

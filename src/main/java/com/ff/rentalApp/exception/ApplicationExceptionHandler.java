@@ -24,5 +24,28 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 		return new ResponseEntity<ResponseStructure<String>>(rs, HttpStatus.BAD_REQUEST);
 		
 	}
+	
+//	
+//	@ExceptionHandler(ConstraintViolationException.class)
+//    public ResponseEntity<ResponseStructure<String>> handleValidationException(ConstraintViolationException ex) {
+//		
+//		ResponseStructure<String> rs = new ResponseStructure<>();
+//		rs.setStatusCode(HttpStatus.BAD_REQUEST.value());
+//		rs.setMessage("BAD Request");
+//		rs.setMessage(ex.getMessage());
+//       
+//		return new ResponseEntity<ResponseStructure<String>>(rs, HttpStatus.BAD_REQUEST);
+//    }
+	
+	@ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ResponseStructure<String>> handleValidationException2(ValidationException ex) {
+		
+		ResponseStructure<String> rs = new ResponseStructure<>();
+		rs.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		rs.setMessage("BAD Request");
+		rs.setMessage(ex.getMessage());
+       
+		return new ResponseEntity<ResponseStructure<String>>(rs, HttpStatus.BAD_REQUEST);
+    }
 
 }

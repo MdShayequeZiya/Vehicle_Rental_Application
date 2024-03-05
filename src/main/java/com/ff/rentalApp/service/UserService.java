@@ -4,17 +4,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import com.ff.rentalApp.dao.UserDao;
 import com.ff.rentalApp.dto.ResponseStructure;
 import com.ff.rentalApp.entity.User;
+import com.ff.rentalApp.exception.ValidationException;
 
 @Service
 public class UserService {
 	@Autowired
 	private UserDao userDao;
 
-	public ResponseEntity<ResponseStructure<User>> saveUser(User user) {
+	
+	public ResponseEntity<ResponseStructure<User>> saveUser(User user, BindingResult result) {
+
+		if (result.hasErrors()) {
+
+			String exception = "";
+			for (FieldError error : result.getFieldErrors()) {
+				exception += error.getDefaultMessage() + ", ";
+			}
+
+			throw new ValidationException(exception);
+
+		}
 
 		User receivedUser = userDao.saveUser(user);
 
@@ -50,20 +65,20 @@ public class UserService {
 		return new ResponseEntity<ResponseStructure<User>>(rs, HttpStatus.CREATED);
 
 	}
-	
+
 	public ResponseEntity<ResponseStructure<User>> updateUser(int id, User user) {
-		 
+
 		User user2 = userDao.findUserbyId(id);
-		
+
 		user2.setAddress(user.getAddress());
 		user2.setEmail(user.getEmail());
 		user2.setMobileNo(user.getMobileNo());
 		user2.setPassword(user.getPassword());
 		user2.setUserName(user.getUserName());
 		user2.setUserRole(user.getUserRole());
-		
+
 		User receivedUser = userDao.saveUser(user2);
-		
+
 		ResponseStructure<User> rs = new ResponseStructure<User>();
 		rs.setMessage("User Fetched successfully added");
 		rs.setStatusCode(HttpStatus.CREATED.value());

@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.DecimalMax;
 import lombok.Data;
 
 @Entity
@@ -19,6 +20,7 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@DecimalMax(value = "10.0", inclusive = true)
 	private double rating;
 	private String reviewDescription;
 	private String reviewerName;

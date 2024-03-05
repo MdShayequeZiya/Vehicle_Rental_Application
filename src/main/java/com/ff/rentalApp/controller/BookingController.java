@@ -31,6 +31,7 @@ public class BookingController {
 	@Autowired
 	private BookingService bookingService;
 	
+	
 
 	@Operation(description ="Save Booking details for a vehicle", summary = "Save Booking details for a vehicle")
 	@ApiResponse(description = "Create Booking details", responseCode = "201")

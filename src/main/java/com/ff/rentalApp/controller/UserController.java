@@ -2,6 +2,7 @@ package com.ff.rentalApp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -16,6 +17,7 @@ import com.ff.rentalApp.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
@@ -27,8 +29,9 @@ public class UserController {
 	@Operation(description ="Signup details for merchant/customer", summary = "Signup details for merchant/customer")
 	@ApiResponse(description = "Create User details", responseCode = "200")
 	@PostMapping("/signup")
-	public ResponseEntity<ResponseStructure<User>> userSignup(@RequestBody User user){
-		return userService.saveUser(user);
+	public ResponseEntity<ResponseStructure<User>> userSignup(@Valid @RequestBody User user, BindingResult result){
+		
+		return userService.saveUser(user, result);
 	}
 	
 	@Operation(description ="Login as merchant/customer", summary = "Login as merchant/customer")
@@ -41,7 +44,7 @@ public class UserController {
 	@Operation(description ="Update profile of merchant/customer", summary = "Update profile of merchant/customer")
 	@ApiResponse(description = "Update user details", responseCode = "201")
 	@PutMapping("/update/{id}")
-	public ResponseEntity<ResponseStructure<User>>updateUser(@PathVariable int id, @RequestBody User user){
+	public ResponseEntity<ResponseStructure<User>>updateUser(@PathVariable int id, @Valid @RequestBody User user){
 		return userService.updateUser(id,user);
 	}
 

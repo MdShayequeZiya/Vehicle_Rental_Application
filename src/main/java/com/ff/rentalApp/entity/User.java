@@ -15,7 +15,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -28,17 +27,17 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@Size(min = 4)
+	@Size(min = 4, message = "Username should be atleast 4 characters")
 	private String userName;
 	
 	@Column(unique = true)
-	@Email
+	@Email(message = "Please enter valid email")
 	private String email;
 	@Size(min = 8)
 	private String password;
 	private long mobileNo;
 	
-	@Pattern(regexp = "[A-Z]+", message = "String must consist of uppercase letters only")
+
 	private String userRole;
 	
 	@OneToMany(mappedBy = "user")

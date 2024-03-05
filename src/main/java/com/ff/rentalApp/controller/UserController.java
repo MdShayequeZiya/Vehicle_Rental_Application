@@ -18,7 +18,6 @@ import com.ff.rentalApp.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
-import jakarta.validation.ValidationException;
 
 @RestController
 @RequestMapping("/user")
@@ -32,10 +31,7 @@ public class UserController {
 	@PostMapping("/signup")
 	public ResponseEntity<ResponseStructure<User>> userSignup(@Valid @RequestBody User user, BindingResult result){
 		
-		if(result.hasErrors()) {
-			throw new ValidationException("Validation Exception");
-		}
-		return userService.saveUser(user);
+		return userService.saveUser(user, result);
 	}
 	
 	@Operation(description ="Login as merchant/customer", summary = "Login as merchant/customer")

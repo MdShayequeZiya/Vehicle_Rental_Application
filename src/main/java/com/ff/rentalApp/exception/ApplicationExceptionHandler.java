@@ -1,8 +1,5 @@
 package com.ff.rentalApp.exception;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,12 +25,27 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 		
 	}
 	
+//	
+//	@ExceptionHandler(ConstraintViolationException.class)
+//    public ResponseEntity<ResponseStructure<String>> handleValidationException(ConstraintViolationException ex) {
+//		
+//		ResponseStructure<String> rs = new ResponseStructure<>();
+//		rs.setStatusCode(HttpStatus.BAD_REQUEST.value());
+//		rs.setMessage("BAD Request");
+//		rs.setMessage(ex.getMessage());
+//       
+//		return new ResponseEntity<ResponseStructure<String>>(rs, HttpStatus.BAD_REQUEST);
+//    }
 	
 	@ExceptionHandler(ValidationException.class)
-    public ResponseEntity<Map<String, String>> handleValidationException(ValidationException ex) {
-        Map<String, String> errors = new HashMap<>();
-        errors.put("error", ex.getMessage());
-        return ResponseEntity.badRequest().body(errors);
+    public ResponseEntity<ResponseStructure<String>> handleValidationException2(ValidationException ex) {
+		
+		ResponseStructure<String> rs = new ResponseStructure<>();
+		rs.setStatusCode(HttpStatus.BAD_REQUEST.value());
+		rs.setMessage("BAD Request");
+		rs.setMessage(ex.getMessage());
+       
+		return new ResponseEntity<ResponseStructure<String>>(rs, HttpStatus.BAD_REQUEST);
     }
 
 }

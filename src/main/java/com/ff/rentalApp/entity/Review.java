@@ -20,7 +20,7 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	 @DecimalMax(value = "10.0", inclusive = true)
+	@DecimalMax(value = "10.0", inclusive = true)
 	private double rating;
 	private String reviewDescription;
 	private String reviewerName;
